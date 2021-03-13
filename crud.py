@@ -20,3 +20,7 @@ def create_shortened(db: Session, link: schemas.LinkCreate):
     db.commit()
     db.refresh(db_link)
     return db_link
+
+def record_access(db: Session, link: schemas.Link):
+    db.add(models.Access(link_id=link.id))
+    db.commit()

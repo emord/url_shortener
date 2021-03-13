@@ -29,6 +29,7 @@ def link(link, db: Session = Depends(get_db)):
     db_link = crud.get_link_from_shortened(db, link)
     if not db_link:
         return HTTPException(404, "not found")
+    crud.record_access(db, db_link)
     return RedirectResponse(db_link.url)
 
 @app.post("/shorten", response_model=schemas.Link)
