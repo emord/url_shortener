@@ -1,2 +1,5 @@
-starlette
+fastapi
 uvicorn
+gunicorn
+pydantic
+sqlalchemy
