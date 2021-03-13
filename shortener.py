@@ -1,4 +1,4 @@
- # pylint: disable=no-name-in-module
+# pylint: disable=no-name-in-module
 import hashlib
 
 from fastapi import Depends, FastAPI, HTTPException
@@ -13,6 +13,7 @@ models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="URL Shortener")
 
+
 def get_db():
     db = SessionLocal()
     try:
@@ -20,9 +21,11 @@ def get_db():
     finally:
         db.close()
 
+
 @app.get("/")
 def root():
     return {"Hello": "World"}
+
 
 @app.get("/l/{link}")
 def link(link, db: Session = Depends(get_db)):
@@ -31,6 +34,7 @@ def link(link, db: Session = Depends(get_db)):
         return HTTPException(404, "not found")
     crud.record_access(db, db_link)
     return RedirectResponse(db_link.url)
+
 
 @app.post("/shorten", response_model=schemas.Link)
 def shorten(link: schemas.LinkCreate, db: Session = Depends(get_db)):

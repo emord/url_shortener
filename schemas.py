@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 
+
 class LinkBase(BaseModel):
     url: str
 
